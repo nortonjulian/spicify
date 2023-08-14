@@ -2,7 +2,7 @@ import React from 'react';
 
 const Pagination = ({ currentPage, recipesPerPage, totalRecipes, onPageChange }) => {
     const totalPages = Math.ceil(totalRecipes / recipesPerPage);
-
+    console.log("Total Pages:", totalPages)
     const handleNextPage = () => {
       onPageChange(currentPage + 1)
     };

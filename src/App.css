@@ -40,3 +40,29 @@
 /* .no-list-style {
   list-style: none;
 } */
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.recipe-image {
+  max-width: 250px;
+  max-height: 250px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+li {
+  margin: 10px;
+}
+
+/* .pagination {
+  visibility: visible;
+} */
