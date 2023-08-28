@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 
-const Form = ({ onSubmit, currentPage }) => {
+const Form = ({ onSubmit }) => {
   const [seasonings, setSeasonings] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log("Current Page (Form):", currentPage)
-
-    onSubmit(seasonings.split(',').map((s) => s.trim()), currentPage);
+    onSubmit(seasonings.split(',').map((s) => s.trim()));
     setSeasonings(''); // Reset input box
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Enter food seasonings (comma-separated):
+      Add up to four food seasonings (comma-separated):
         <input
           type="text"
           value={seasonings}

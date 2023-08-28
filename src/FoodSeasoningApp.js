@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Form from './Form';
 import RecipeList from './RecipeList';
-import Pagination from './Pagination'
 import axios from 'axios';
 
-const apiKey = '96acacd9967d40b0913b72826ac7f9ba';
+// const apiKey = '96acacd9967d40b0913b72826ac7f9ba';
 
 const FoodSeasoningApp = () => {
   const [recipes, setRecipes] = useState([]);
-  const [totalRecipes, setTotalRecipes] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const recipesPerPage = 10;
 
-  console.log("Current Page (FoodSeasonApp):", currentPage)
-
-  const handleFormSubmit = async (query, page) => {
+  const handleFormSubmit = async (query) => {
+    console.log('Query submitted:', query)
     try {
-      // console.log("Input query:", query);
-      // console.log("Current page:", page);
 
       const cleanedQuery = query.map(seasoning => seasoning.trim()).filter(seasoning => seasoning !== "");
       // console.log("Cleaned query:", cleanedQuery);
@@ -30,45 +23,46 @@ const FoodSeasoningApp = () => {
       const formattedQuery = cleanedQuery.join(',+')
       console.log(formattedQuery)
 
-      const recipesPromises = cleanedQuery.map(async (ingredient) => {
-        const requestUrl = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${formattedQuery}&number=${recipesPerPage}&offset=${(page - 1) * recipesPerPage}`;
-        const response = await axios.get(requestUrl);
-        return response.data;
+      // const requestUrl = '/api/spoonacular?ingredients=' + formattedQuery;
+      const requestUrl = 'http://localhost:5001/api/spoonacular?seasonings=' + formattedQuery;
+
+      // const requestUrl = `/api/recipes?ingredients=${formattedQuery}`;
+      // const requestUrl = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${formattedQuery}&number=100`;
+      // const requestUrl = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${formattedQuery}`;
+
+      console.log("Request URL:", requestUrl);
+
+      // const response = await axios.get(requestUrl);
+      const response = await axios.get(requestUrl).catch(error => {
+        console.error('Axios error:', error.message);
+        console.error('Axios response data:', error.response.data);
       });
 
-      const recipesResults = await Promise.all(recipesPromises);
+      console.log('API Response:', response);
+      console.log('API Response Data:', response.data);
 
-      const flattenedRecipes = recipesResults.flatMap((recipesSet) => recipesSet);
 
-      setRecipes(flattenedRecipes);
-      setTotalRecipes(flattenedRecipes.length);
+      const recipesReturned = response.data;
+      console.log("Recipes Returned:", recipesReturned);
+
+      const sortedRecipes = recipesReturned.sort((a, b) => a.title.localeCompare(b.title));
+
+
+      setRecipes(sortedRecipes);
     } catch (error) {
       console.error('Error occurred:', error);
     }
   };
 
   useEffect(() => {
-    console.log("Current Page:", currentPage);
-    handleFormSubmit([], parseInt(currentPage));
-  }, [currentPage])
-
-  const handlePageChange = (newPage) => {
-    console.log("Changing page to:", newPage)
-    setCurrentPage(newPage);
-    handleFormSubmit([], newPage);
-  };
+    handleFormSubmit([])
+  }, [])
 
   return (
     <div>
-      <h1>Food Seasoning App</h1>
-      <Form onSubmit={handleFormSubmit} currentPage={currentPage} />
-      <RecipeList recipes={recipes} recipesPerPage={recipesPerPage} />
-      <Pagination
-        currentPage={currentPage}
-        recipesPerPage={recipesPerPage}
-        totalRecipes={totalRecipes}
-        onPageChange={handlePageChange}
-      />
+      <h2>Unlock Culinary Creativity: Your Leftover Seasonings, Endless Recipes!</h2>
+      <Form onSubmit={handleFormSubmit} />
+      <RecipeList recipes={recipes} />
     </div>
   );
 };
