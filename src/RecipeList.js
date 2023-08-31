@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const RecipeList = ({ recipes, currentPage, recipesPerPage }) => {
+const RecipeList = ({ recipes, currentPage, recipesPerPage, heading }) => {
   const [searchPerformed, setSearchPerformed] = useState(false);
 
   const hasRecipes = recipes.length > 0;
@@ -21,12 +21,12 @@ const RecipeList = ({ recipes, currentPage, recipesPerPage }) => {
         <p>No recipes found.</p>
       ) : (
         <div>
-          {hasRecipes && <h2 className="recipe-list-heading">Recipes:</h2>}
+          {hasRecipes && <h2 className="recipe-list-heading">{heading}</h2>}
           <ul className="recipe-list">
             {currentRecipes.map(recipe => (
               <li key={recipe.id}>
                 <div className="recipe-card">
-                  {recipe.image && (
+                  {recipe.image ? (
                     <a
                       href={`https://www.google.com/search?q=${encodeURIComponent(recipe.title)}`}
                       target="_blank"
@@ -41,6 +41,13 @@ const RecipeList = ({ recipes, currentPage, recipesPerPage }) => {
                         <div className="recipe-title-overlay">{recipe.title}</div>
                       </div>
                     </a>
+                  ) : (
+                    <div className="image-container">
+                      <div className="recipe-image no-image">
+                        No Image Available
+                      </div>
+                      <div className="recipe-title-overlay">{recipe.title}</div>
+                    </div>
                   )}
                 </div>
               </li>

@@ -9,10 +9,13 @@ import axios from 'axios';
 const FoodSeasoningApp = () => {
   const [recipes, setRecipes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [query, setQuery] = useState([]);
   const recipesPerPage = 10;
 
   const handleFormSubmit = async (query) => {
     console.log('Query submitted:', query)
+    setQuery(query);
+    setCurrentPage(1);
     try {
 
       const cleanedQuery = query.map(seasoning => seasoning.trim()).filter(seasoning => seasoning !== "");
@@ -61,11 +64,12 @@ const FoodSeasoningApp = () => {
     handleFormSubmit([])
   }, [])
 
+
   return (
     <div>
       <h2>Unlock Culinary Creativity: Your Leftover Seasonings, Endless Recipes!</h2>
       <Form onSubmit={handleFormSubmit} />
-      <RecipeList recipes={recipes} currentPage={currentPage} recipesPerPage={recipesPerPage} />
+      <RecipeList recipes={recipes} currentPage={currentPage} recipesPerPage={recipesPerPage} heading={`Displaying Recipes with the ingredients of: ${query.join(', ')}`} />
        <Pagination
         currentPage={currentPage}
         totalRecipes={recipes.length}
