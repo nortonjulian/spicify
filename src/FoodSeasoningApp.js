@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Form from './Form';
 import RecipeList from './RecipeList';
+import Pagination from './Pagination';
 import axios from 'axios';
 
 // const apiKey = '96acacd9967d40b0913b72826ac7f9ba';
 
 const FoodSeasoningApp = () => {
   const [recipes, setRecipes] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const recipesPerPage = 10;
 
   const handleFormSubmit = async (query) => {
     console.log('Query submitted:', query)
@@ -23,7 +26,7 @@ const FoodSeasoningApp = () => {
       const formattedQuery = cleanedQuery.join(',+')
       console.log(formattedQuery)
 
-      // const requestUrl = '/api/spoonacular?ingredients=' + formattedQuery;
+      // const requestUrl = '/api/spoonacular?seasonings=' + formattedQuery;
       const requestUrl = 'http://localhost:5001/api/spoonacular?seasonings=' + formattedQuery;
 
       // const requestUrl = `/api/recipes?ingredients=${formattedQuery}`;
@@ -32,7 +35,7 @@ const FoodSeasoningApp = () => {
 
       console.log("Request URL:", requestUrl);
 
-      // const response = await axios.get(requestUrl);
+      console.log('Before making API call...');
       const response = await axios.get(requestUrl).catch(error => {
         console.error('Axios error:', error.message);
         console.error('Axios response data:', error.response.data);
@@ -45,10 +48,10 @@ const FoodSeasoningApp = () => {
       const recipesReturned = response.data;
       console.log("Recipes Returned:", recipesReturned);
 
-      const sortedRecipes = recipesReturned.sort((a, b) => a.title.localeCompare(b.title));
+      // const sortedRecipes = recipesReturned.sort((a, b) => a.title.localeCompare(b.title));
 
 
-      setRecipes(sortedRecipes);
+      setRecipes(recipesReturned);
     } catch (error) {
       console.error('Error occurred:', error);
     }
@@ -62,7 +65,13 @@ const FoodSeasoningApp = () => {
     <div>
       <h2>Unlock Culinary Creativity: Your Leftover Seasonings, Endless Recipes!</h2>
       <Form onSubmit={handleFormSubmit} />
-      <RecipeList recipes={recipes} />
+      <RecipeList recipes={recipes} currentPage={currentPage} recipesPerPage={recipesPerPage} />
+       <Pagination
+        currentPage={currentPage}
+        totalRecipes={recipes.length}
+        recipesPerPage={recipesPerPage}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };
