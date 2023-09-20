@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('./app');
+const app = require('./app.js');
 
 describe('Express App Configuration', () => {
   test('should respond with 404 for unknown routes', async () => {

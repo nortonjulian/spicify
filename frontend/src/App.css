@@ -1,0 +1,174 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* .no-list-style {
+  list-style: none;
+} */
+
+h1 {
+  font-family: cursive;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+li {
+  margin: 10px;
+}
+
+.recipe-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.recipe-list-heading {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.recipe-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Add gap between recipes */
+}
+
+.recipe-card {
+  position: relative;
+  margin: 10px;
+  flex-basis: calc(50% - 20px); /* Adjust flex basis to take 50% width minus gap */
+}
+
+.image-container {
+  position: relative;
+}
+
+.recipe-image {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid black;
+  border-radius: 2rem;
+}
+
+.no-image {
+  width: 100%;
+  height: 250px; /* Set a fixed height for consistency */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  border-radius: 2rem;
+  background-color: #f0f0f0; /* Add a background color for consistency */
+}
+
+.recipe-title-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.recipe-card:hover .recipe-title-overlay {
+  opacity: 1;
+}
+
+.active {
+  background-color: #d11f2b;
+  color: white;
+  border: 1px solid #d11f2b;
+  padding: 5px 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+.active:hover {
+  background-color: #d11f2b;
+  border-color: #d11f2b;
+}
+
+
+/* Apply styles for mobile devices (320px - 480px) */
+@media (min-width: 320px) and (max-width: 480px) {
+  .App-header {
+    font-size: 16px; /* Adjust font size for mobile */
+  }
+
+  .recipe-card {
+    flex-basis: 100%; /* Recipe cards should take full width on mobile */
+  }
+}
+
+/* Apply styles for iPads and Tablets (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .App-header {
+    font-size: 18px; /* Adjust font size for tablets */
+  }
+}
+
+/* Apply styles for Small screens and laptops (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .App-header {
+    font-size: 20px; /* Adjust font size for small screens and laptops */
+  }
+}
+
+/* Apply styles for Desktops and large screens (1025px - 1200px) */
+@media (min-width: 1025px) and (max-width: 1200px) {
+  /* You can adjust styles as needed for desktops and large screens */
+}
