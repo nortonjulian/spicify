@@ -42,7 +42,8 @@
 } */
 
 h1 {
-  font-family: cursive;
+  font-family: 'Lucida Handwriting', cursive, sans-serif;
+  font-size: 3.5em;
 }
 
 ul {

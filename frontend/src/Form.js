@@ -20,7 +20,7 @@ const Form = ({ onSubmit }) => {
           onChange={(e) => setSeasonings(e.target.value)}
         />
       </label>
-      <button type="submit">Search Recipes</button>
+      <button class="custom-button" type="submit">Search Recipes</button>
     </form>
   );
 };
