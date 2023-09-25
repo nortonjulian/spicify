@@ -30,7 +30,7 @@ const FoodSeasoningApp = () => {
       console.log(formattedQuery)
 
       // const requestUrl = '/api/spoonacular?seasonings=' + formattedQuery;
-      const requestUrl = 'http://localhost:5001/api/spoonacular?seasonings=' + formattedQuery;
+      const requestUrl = 'spicify.onrender.com/api/spoonacular?seasonings=' + formattedQuery;
 
       // const requestUrl = `/api/recipes?ingredients=${formattedQuery}`;
       // const requestUrl = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${formattedQuery}&number=100`;
